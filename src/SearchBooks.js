@@ -32,12 +32,18 @@ class SearchBooks extends Component {
 
   searchBooks = (query) => {
     if (query) {
+      let hashTable = {};
+      this.props.books.forEach(book => hashTable[book.id] = book.shelf);
+      console.log(hashTable);
+
       BooksAPI.search(escapeRegExp(query), this.maxResults)
         .then(results => {
-          this.setState({
-            searchBooksResults: Array.isArray(results)
-                                && results.map(item => this.mergeShelfForSearchResult(item))
-          })
+          if (Array.isArray(results)) {
+            results.forEach(book => book.shelf = hashTable[book.id] || 'none');
+            this.setState({
+              searchBooksResults: results
+            });
+          }
         })
     } else {
       this.setState({ searchBooksResults: [] });
@@ -46,6 +52,8 @@ class SearchBooks extends Component {
 
   render() {
     let { searchBooksResults } = this.state;
+    console.log('searchBooksResults');
+    console.log(searchBooksResults);
 
     return (
       <div className="search-books">

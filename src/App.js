@@ -53,13 +53,9 @@ class BooksApp extends React.Component {
       }));
     } else {
       // Add new book
-      BooksAPI.get(book.id)
-      .then(newBook => {
-        this.setState(prevState => ({
-          books: [...prevState.books, newBook]
-        }))
-      });
-
+      this.setState(prevState => ({
+        books: [...prevState.books, book]
+      }))
     }
   }
 
