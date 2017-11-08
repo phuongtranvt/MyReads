@@ -26,7 +26,7 @@ const BookShelf = (props) => {
       </ol>
     </div>
   </div>
-)};
+)}
 
 BookShelf.propTypes = {
   books: PropTypes.array.isRequired,
